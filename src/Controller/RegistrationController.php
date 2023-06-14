@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin')]
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
@@ -21,6 +22,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(['ROLE_SUPER_ADMIN']);
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
