@@ -2,15 +2,23 @@
 
 namespace App\Command;
 
+use App\Service\SpreadsheetService;
 use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ProcessFileCommand extends Command
 {
+    private SpreadsheetService $spreadsheetService;
+
+    public function __construct(SpreadsheetService $service, string $name = null)
+    {
+        $this->spreadsheetService = $service;
+        parent::__construct($name);
+    }
+
     protected function configure(): void
     {
         $this
@@ -28,7 +36,7 @@ class ProcessFileCommand extends Command
 
         // Process the file in chunks
         try {
-            foreach ($this->getRows($filePath, 200) as $row) {
+            foreach ($this->spreadsheetService->getRows($filePath, 200) as $row) {
                 file_put_contents('/tmp/test.log', var_export($row, true), FILE_APPEND);
                 var_dump($row);
             }
@@ -37,24 +45,5 @@ class ProcessFileCommand extends Command
         }
 
         return Command::SUCCESS;
-    }
-
-    private function getRows(string $filePath, int $chunkSize = 1000): \Generator
-    {
-        $spreadsheet = IOFactory::load($filePath);
-        $worksheet = $spreadsheet->getActiveSheet();
-
-        $highestRow = $worksheet->getHighestRow();
-        $highestColumn = $worksheet->getHighestColumn();
-
-        for ($row = 1; $row <= $highestRow; $row += $chunkSize) {
-            $endRow = $row + $chunkSize - 1;
-            if ($endRow > $highestRow) {
-                $endRow = $highestRow;
-            }
-
-            $range = 'A' . $row . ':' . $highestColumn . $endRow;
-            yield $worksheet->rangeToArray($range, returnCellRef: true);
-        }
     }
 }
