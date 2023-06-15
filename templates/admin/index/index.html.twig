@@ -6,9 +6,15 @@
 
     <h1>Backoffice</h1>
 
+    {% for flashMessage in app.flashes('success') %}
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
     <ul>
         <li>
-            <a href="{{ path('app_upload_server') }}">Upload Server List</a>
+            <a href="{{ path('app_upload_list') }}">Process List of Servers</a>
         </li>
         <li>
             <a href="{{ path('app_logout') }}">Logout</a>
