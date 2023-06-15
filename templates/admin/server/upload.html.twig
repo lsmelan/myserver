@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload Server List{% endblock %}
+
+{% block body %}
+
+    <h1>Upload Server List</h1>
+
+    {% for flashMessage in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form.file) }}
+
+    <button type="submit">Upload</button>
+    {{ form_end(form) }}
+<br/>
+    <a href="{{ path('app_index') }}">Back</a>
+
+{% endblock %}

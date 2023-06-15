@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin')]
-class ServerController extends AbstractController
+class IndexController extends AbstractController
 {
-    #[Route('/', name: 'app_server')]
+    #[Route('/', name: 'app_index')]
     public function index(): Response
     {
-        return $this->render('server/index.html.twig');
+        return $this->render('admin/index/index.html.twig');
     }
 }
