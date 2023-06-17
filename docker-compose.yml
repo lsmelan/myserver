@@ -12,6 +12,16 @@ services:
       - ./ci/build/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     depends_on:
       - database
+      - cache
+
+  cache:
+    image: redis:7.0.11-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - cache:/data
 
 ###> doctrine/doctrine-bundle ###
   database:
@@ -28,6 +38,8 @@ services:
 ###< doctrine/doctrine-bundle ###
 
 volumes:
+  cache:
+    driver: local
 ###> doctrine/doctrine-bundle ###
   database_data:
 ###< doctrine/doctrine-bundle ###

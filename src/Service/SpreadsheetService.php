@@ -6,22 +6,17 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class SpreadsheetService
 {
-    public function getRows(string $filePath, int $chunkSize = 1000): \Generator
+    const FIRST_CELL = 'A1';
+
+    public function getRange(string $filePath, string $lastColumn = null): array
     {
         $spreadsheet = IOFactory::load($filePath);
         $worksheet = $spreadsheet->getActiveSheet();
 
-        $highestRow = $worksheet->getHighestRow();
-        $highestColumn = $worksheet->getHighestColumn();
+        $highestColumn = $lastColumn ?: $worksheet->getHighestColumn();
 
-        for ($row = 1; $row <= $highestRow; $row += $chunkSize) {
-            $endRow = $row + $chunkSize - 1;
-            if ($endRow > $highestRow) {
-                $endRow = $highestRow;
-            }
+        $range = self::FIRST_CELL . ':' . $highestColumn . $worksheet->getHighestRow();
 
-            $range = 'A' . $row . ':' . $highestColumn . $endRow;
-            yield $worksheet->rangeToArray($range, returnCellRef: true);
-        }
+        return $worksheet->rangeToArray($range, returnCellRef: true);
     }
 }

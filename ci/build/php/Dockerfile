@@ -18,6 +18,7 @@ RUN a2enmod rewrite vhost_alias
 # Install PHP extensions required by Symfony
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install gd pdo_pgsql opcache zip intl
+RUN pecl install redis && docker-php-ext-enable redis
 
 # Install composer and Symfony CLI
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
