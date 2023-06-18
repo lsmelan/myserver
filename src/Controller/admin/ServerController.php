@@ -30,6 +30,7 @@ class ServerController extends AbstractController
 
             if (!in_array($extension, $allowedExtensions)) {
                 $this->addFlash('error', 'Only XLSX and CSV files are allowed.');
+
                 return $this->redirectToRoute('app_upload_list');
             }
 
@@ -41,6 +42,7 @@ class ServerController extends AbstractController
 
             // Redirect to a success page or perform further actions
             $this->addFlash('success', 'File processed successfully.');
+
             return $this->redirectToRoute('app_index');
         }
 

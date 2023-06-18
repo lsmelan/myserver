@@ -4,7 +4,6 @@ namespace App\Command;
 
 use App\Repository\RedisServerRepository;
 use App\Service\SpreadsheetService;
-use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,9 +18,9 @@ class ProcessFileCommand extends Command
     private RedisServerRepository $redisServerRepository;
 
     public function __construct(
-        SpreadsheetService    $spreadsheetService,
+        SpreadsheetService $spreadsheetService,
         RedisServerRepository $redisServerRepository,
-        string                $name = null
+        string $name = null
     ) {
         $this->spreadsheetService = $spreadsheetService;
         $this->redisServerRepository = $redisServerRepository;
@@ -37,7 +36,7 @@ class ProcessFileCommand extends Command
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -52,12 +51,11 @@ class ProcessFileCommand extends Command
 
                 foreach ($rows as $key => $data) {
                     // Cache
-                    $this->redisServerRepository->addServers("server:" . $key, $data, $fields);
+                    $this->redisServerRepository->addServers('server:'.$key, $data, $fields);
                 }
             }
-
-        } catch (Exception $e) {
-            throw new $e;
+        } catch (\Exception $e) {
+            throw new $e();
         }
 
         return Command::SUCCESS;

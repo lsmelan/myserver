@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class SpreadsheetService
 {
-    const FIRST_CELL = 'A1';
+    public const FIRST_CELL = 'A1';
 
     public function getRange(string $filePath, string $lastColumn = null): array
     {
@@ -15,7 +15,7 @@ class SpreadsheetService
 
         $highestColumn = $lastColumn ?: $worksheet->getHighestColumn();
 
-        $range = self::FIRST_CELL . ':' . $highestColumn . $worksheet->getHighestRow();
+        $range = self::FIRST_CELL.':'.$highestColumn.$worksheet->getHighestRow();
 
         return $worksheet->rangeToArray($range, returnCellRef: true);
     }

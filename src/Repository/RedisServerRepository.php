@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Client\CacheInterface;
-use Exception;
 
 class RedisServerRepository
 {
@@ -25,7 +24,7 @@ class RedisServerRepository
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function addServers(string $key, array $data, array $fields): void
     {
@@ -35,10 +34,10 @@ class RedisServerRepository
         $this->redisClient->hSet($key, strtolower($fields[self::LOCATION_COLUMN]), $data[self::LOCATION_COLUMN]);
         $this->redisClient->hSet($key, strtolower($fields[self::PRICE_COLUMN]), $data[self::PRICE_COLUMN]);
         // Create the indexes
-        $this->redisClient->sAdd("storage_index:" . $data[self::HDD_COLUMN], [$key]);
-        $this->redisClient->sAdd("ram_index:" . $data[self::RAM_COLUMN], [$key]);
-        $this->redisClient->sAdd("hdd_index:" . $data[self::HDD_COLUMN], [$key]);
-        $this->redisClient->sAdd("location_index:" . $data[self::LOCATION_COLUMN], [$key]);
+        $this->redisClient->sAdd('storage_index:'.$data[self::HDD_COLUMN], [$key]);
+        $this->redisClient->sAdd('ram_index:'.$data[self::RAM_COLUMN], [$key]);
+        $this->redisClient->sAdd('hdd_index:'.$data[self::HDD_COLUMN], [$key]);
+        $this->redisClient->sAdd('location_index:'.$data[self::LOCATION_COLUMN], [$key]);
     }
 
     public function getServersByFilters(array $keys, string $sortBy, string $sortOrder, int $page, int $perPage): array
@@ -53,7 +52,7 @@ class RedisServerRepository
 
         return [
             'servers' => $servers,
-            'totalServers' => $totalServers
+            'totalServers' => $totalServers,
         ];
     }
 
@@ -67,7 +66,7 @@ class RedisServerRepository
                 return 0;
             }
 
-            if ($sortOrder === 'asc') {
+            if ('asc' === $sortOrder) {
                 return ($a[$sortBy] < $b[$sortBy]) ? -1 : 1;
             }
 
@@ -80,6 +79,7 @@ class RedisServerRepository
     private function applyPagination(array $servers, int $page, int $perPage): array
     {
         $offset = ($page - 1) * $perPage;
+
         return array_slice($servers, $offset, $perPage);
     }
 
