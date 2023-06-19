@@ -14,6 +14,11 @@ class ProcessFileCommand extends Command
     private const ARGUMENT = 'file';
     private const LAST_COLUMN = 'E';
     private const HEADER = 1;
+    private const MODEL_COLUMN = 'A';
+    private const RAM_COLUMN = 'B';
+    private const HDD_COLUMN = 'C';
+    private const LOCATION_COLUMN = 'D';
+    private const PRICE_COLUMN = 'E';
     private SpreadsheetService $spreadsheetService;
     private RedisServerRepository $redisServerRepository;
 
@@ -50,8 +55,9 @@ class ProcessFileCommand extends Command
                 unset($rows[self::HEADER]);
 
                 foreach ($rows as $key => $data) {
-                    // Cache
-                    $this->redisServerRepository->addServers('server:'.$key, $data, $fields);
+                    $toCache = $this->getDataToCache($fields, $data);
+                    $indexes = $this->getIndexes($data);
+                    $this->redisServerRepository->addServers($this->getKey($key), $toCache, $indexes);
                 }
             }
         } catch (\Exception $e) {
@@ -59,5 +65,35 @@ class ProcessFileCommand extends Command
         }
 
         return Command::SUCCESS;
+    }
+
+    private function getKey(int|string $key): string
+    {
+        return 'server:' . $key;
+    }
+
+    private function getDataToCache(mixed $fields, mixed $data): array
+    {
+        return [
+            strtolower($fields[self::MODEL_COLUMN]) => $data[self::MODEL_COLUMN],
+            strtolower($fields[self::RAM_COLUMN]) => $data[self::RAM_COLUMN],
+            strtolower($fields[self::HDD_COLUMN]) => $data[self::HDD_COLUMN],
+            strtolower($fields[self::LOCATION_COLUMN]) => $data[self::LOCATION_COLUMN],
+            strtolower($fields[self::PRICE_COLUMN]) => $data[self::PRICE_COLUMN],
+        ];
+    }
+
+    private function getIndexes(mixed $data): array
+    {
+        preg_match('/([0-9]{1,3}[GT]B)/', $data[self::HDD_COLUMN], $storage);
+        preg_match('/([0-9]{1,2}GB)/', $data[self::RAM_COLUMN], $ram);
+        preg_match('/(SATA|SAS|SSD)/', $data[self::HDD_COLUMN], $hdd);
+
+        return [
+            'storage_index:' . ($storage[1] ?? ''),
+            'ram_index:' . ($ram[1] ?? ''),
+            'hdd_index:' . ($hdd[1] ?? ''),
+            'location_index:' . $data[self::LOCATION_COLUMN]
+        ];
     }
 }

@@ -11,7 +11,7 @@ docker compose exec php-apache php bin/console --env=test doctrine:database:crea
 docker compose exec php-apache php bin/console --env=test -q doctrine:schema:create
 
 echo "Running the tests"
-docker compose exec php-apache php bin/phpunit
+docker compose exec php-apache php bin/phpunit tests/Functional
 
 echo "Stopping and removing test containers"
 docker compose -f docker-compose.integration.yml down --volumes

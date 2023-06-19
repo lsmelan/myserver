@@ -6,11 +6,6 @@ use App\Client\CacheInterface;
 
 class RedisServerRepository
 {
-    private const MODEL_COLUMN = 'A';
-    private const RAM_COLUMN = 'B';
-    private const HDD_COLUMN = 'C';
-    private const LOCATION_COLUMN = 'D';
-    private const PRICE_COLUMN = 'E';
     private CacheInterface $redisClient;
 
     public function __construct(CacheInterface $redisClient)
@@ -26,18 +21,15 @@ class RedisServerRepository
     /**
      * @throws \Exception
      */
-    public function addServers(string $key, array $data, array $fields): void
+    public function addServers(string $key, array $toCache, array $indexes): void
     {
-        $this->redisClient->hSet($key, strtolower($fields[self::MODEL_COLUMN]), $data[self::MODEL_COLUMN]);
-        $this->redisClient->hSet($key, strtolower($fields[self::RAM_COLUMN]), $data[self::RAM_COLUMN]);
-        $this->redisClient->hSet($key, strtolower($fields[self::HDD_COLUMN]), $data[self::HDD_COLUMN]);
-        $this->redisClient->hSet($key, strtolower($fields[self::LOCATION_COLUMN]), $data[self::LOCATION_COLUMN]);
-        $this->redisClient->hSet($key, strtolower($fields[self::PRICE_COLUMN]), $data[self::PRICE_COLUMN]);
-        // Create the indexes
-        $this->redisClient->sAdd('storage_index:'.$data[self::HDD_COLUMN], [$key]);
-        $this->redisClient->sAdd('ram_index:'.$data[self::RAM_COLUMN], [$key]);
-        $this->redisClient->sAdd('hdd_index:'.$data[self::HDD_COLUMN], [$key]);
-        $this->redisClient->sAdd('location_index:'.$data[self::LOCATION_COLUMN], [$key]);
+        foreach ($toCache as $field => $value) {
+            $this->redisClient->hSet($key, $field, $value);
+        }
+
+        foreach ($indexes as $index) {
+            $this->redisClient->sAdd($index, [$key]);
+        }
     }
 
     public function getServersByFilters(array $keys, string $sortBy, string $sortOrder, int $page, int $perPage): array

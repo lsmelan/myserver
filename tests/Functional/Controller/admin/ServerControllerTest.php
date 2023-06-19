@@ -225,7 +225,7 @@ class ServerControllerTest extends WebTestCase
     public function expectedRedisData(): array
     {
         return [
-            [
+            'case 1' => [
                 'server:2',
                 [
                     'model' => 'Dell R210Intel Xeon X3440',
@@ -234,12 +234,12 @@ class ServerControllerTest extends WebTestCase
                     'location' => 'AmsterdamAMS-01',
                     'price' => '€49.99',
                 ],
-                'storage_index:2x2TBSATA2',
-                'ram_index:16GBDDR3',
-                'hdd_index:2x2TBSATA2',
+                'storage_index:2TB',
+                'ram_index:16GB',
+                'hdd_index:SATA',
                 'location_index:AmsterdamAMS-01',
             ],
-            [
+            'case 2' =>[
                 'server:3',
                 [
                     'model' => 'HP DL180G62x Intel Xeon E5620',
@@ -248,9 +248,9 @@ class ServerControllerTest extends WebTestCase
                     'location' => 'AmsterdamAMS-01',
                     'price' => '€119.00',
                 ],
-                'storage_index:8x2TBSATA2',
-                'ram_index:32GBDDR3',
-                'hdd_index:8x2TBSATA2',
+                'storage_index:2TB',
+                'ram_index:32GB',
+                'hdd_index:SATA',
                 'location_index:AmsterdamAMS-01',
             ]
         ];
