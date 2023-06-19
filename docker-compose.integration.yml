@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+
+  cache_test:
+    image: redis:7.0.11-alpine
+    restart: always
+    ports:
+      - "6380:6379"
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - cache_test:/data
+
+  database_test:
+    image: postgres:${POSTGRES_VERSION:-15}-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    volumes:
+      - database_data_test:/var/lib/postgresql/data:rw
+
+volumes:
+  cache_test:
+    driver: local
+  database_data_test:

@@ -35,7 +35,7 @@ class ServerController extends AbstractController
             }
 
             // Spawn a background process to handle the file processing
-            $process = new Process(['php', '../bin/console', 'app:process-file', $file->getRealPath()]);
+            $process = new Process(['php', __DIR__.'/../../../bin/console', 'app:process-file', $file->getRealPath()]);
             $process->disableOutput();
             $process->start();
             $process->wait();
