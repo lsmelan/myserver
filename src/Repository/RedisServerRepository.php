@@ -48,21 +48,34 @@ class RedisServerRepository
         ];
     }
 
+    private function extractTermForSorting(string $string, string $sortBy): string
+    {
+        return match ($sortBy) {
+            'ram' => preg_replace('/(?:GB|DDR\d+)/', '', $string),
+            'hdd' => preg_replace('/\d+x\d+TB([A-Z]+)/', '$1', $string),
+            'price' => preg_replace('/[^\d]+/', '', $string),
+            default => $string
+        };
+    }
+
     private function applySorting($serverIds, string $sortBy, string $sortOrder): array
     {
         // Retrieve server data and sort based on the desired field
         $servers = $this->getServersByIds($serverIds);
 
         usort($servers, function ($a, $b) use ($sortBy, $sortOrder) {
-            if ($a[$sortBy] == $b[$sortBy]) {
+            $string1 = $this->extractTermForSorting($a[$sortBy], $sortBy);
+            $string2 = $this->extractTermForSorting($b[$sortBy], $sortBy);
+
+            if ($string1 == $string2) {
                 return 0;
             }
 
             if ('asc' === $sortOrder) {
-                return ($a[$sortBy] < $b[$sortBy]) ? -1 : 1;
+                return ($string1 < $string2) ? -1 : 1;
             }
 
-            return ($a[$sortBy] > $b[$sortBy]) ? -1 : 1;
+            return ($string1 > $string2) ? -1 : 1;
         });
 
         return $servers;
