@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functional\Controller\admin;
+namespace App\Tests\Functional\Controller\Admin;
 
 use App\Client\RedisClient;
 use App\Entity\User;

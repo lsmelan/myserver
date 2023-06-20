@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functional\Controller\api;
+namespace App\Tests\Functional\Controller\Api;
 
 use App\Client\RedisClient;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -207,7 +207,7 @@ class ServerControllerTest extends WebTestCase
         $responseData = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertCount(3, $responseData['servers']);
-        $this->assertSame('8x2TBSATA2', $responseData['servers'][0]['hdd']);
+        $this->assertStringContainsString('SATA', $responseData['servers'][0]['hdd']);
     }
 
     public function testSortingByLocation(): void

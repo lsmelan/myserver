@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\api;
+namespace App\Controller\Api;
 
 use App\Repository\RedisServerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
