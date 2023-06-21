@@ -4,6 +4,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -47,6 +48,9 @@ class ServerFilterFormType extends AbstractType
                     'SingaporeSIN-11' => 'SingaporeSIN-11',
                     'Washington D.C.WDC-01' => 'Washington D.C.WDC-01',
                 ],
+            ])
+            ->add('page', HiddenType::class, [
+                'data' => '1',
             ]);
     }
 

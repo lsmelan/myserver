@@ -5,6 +5,7 @@
 {% block body %}
 
     {{ form_start(form) }}
+        {{ form_widget(form.page) }}
         <div class="container" style="margin-top: 50px">
             <div class="row" style="margin-bottom: 40px">
                 <div class="col-4">
@@ -26,7 +27,6 @@
     <table class="table table-striped" style="width: 80%;margin: auto">
         <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Model</th>
                 <th scope="col">Ram</th>
                 <th scope="col">HDD</th>
@@ -34,16 +34,17 @@
                 <th scope="col">Price</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-            </tr>
+        <tbody id="list">
+
         </tbody>
     </table>
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+                <ul id="pagination" class="list-inline"></ul>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

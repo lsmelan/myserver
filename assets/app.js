@@ -10,6 +10,7 @@ import './styles/app.scss';
 import 'bootstrap';
 import bsCustomFileInput from 'bs-custom-file-input';
 import Slider from './js/Slider';
+import Ajax from './js/Ajax';
 
 bsCustomFileInput.init();
 
@@ -18,3 +19,4 @@ const $ = require('jquery');
 
 // Start slider
 const slider = new Slider();
+const ajax = new Ajax();
