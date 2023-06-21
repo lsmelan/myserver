@@ -25,6 +25,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     && curl -sS https://get.symfony.com/cli/installer | bash \
     && mv $HOME/.symfony5/bin/symfony /usr/local/bin/symfony
 
+# Install nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
+apt-get install -y nodejs
+
 # Copy Symfony project files to the Apache document root
 COPY . /var/www/html
 

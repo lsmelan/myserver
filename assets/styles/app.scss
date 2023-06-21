@@ -1,0 +1,20 @@
+@import '~bootstrap/scss/bootstrap';
+
+.scroll {
+  overflow-y: scroll;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+}
+
+.grid-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.header {
+  font-weight: bold;
+}
