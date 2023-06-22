@@ -23,7 +23,7 @@ class LoginControllerTest extends WebTestCase
         $client->request('GET', '/admin/login');
         $client->submitForm('Login', [
             '_username' => 'wrongusername',
-            '_password' => 'wrongpassword'
+            '_password' => 'wrongpassword',
         ]);
 
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -47,7 +47,7 @@ class LoginControllerTest extends WebTestCase
         $client->request('GET', '/admin/login');
         $client->submitForm('Login', [
             '_username' => 'test_login@example.com',
-            '_password' => 'password123'
+            '_password' => 'password123',
         ]);
 
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -58,11 +58,6 @@ class LoginControllerTest extends WebTestCase
         $this->assertStringContainsString('Backoffice', $client->getResponse()->getContent());
     }
 
-    /**
-     * @param object|null $passwordHasher
-     * @param $entityManager
-     * @return void
-     */
     private function createUser(?object $passwordHasher, $entityManager): void
     {
         $user = new User();

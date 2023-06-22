@@ -4,7 +4,6 @@ namespace App\Tests\Functional\Controller\Admin;
 
 use App\Client\RedisClient;
 use App\Entity\User;
-use Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -17,7 +16,7 @@ class ServerControllerTest extends WebTestCase
     private ?KernelBrowser $client;
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     protected function setUp(): void
     {
@@ -29,7 +28,6 @@ class ServerControllerTest extends WebTestCase
         $this->client = $kernel->getContainer()->get('test.client');
 
         $this->createANewUserEntityInTheDatabase();
-
     }
 
     public function testFormDisplay(): void
@@ -107,6 +105,7 @@ class ServerControllerTest extends WebTestCase
 
     /**
      * @dataProvider expectedRedisData
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function testValidXlsxFileUpload(
@@ -169,10 +168,6 @@ class ServerControllerTest extends WebTestCase
         $this->client->loginUser($user);
     }
 
-    /**
-     * @param string $tempFilePath
-     * @return void
-     */
     private function generateInvalidFile(string $tempFilePath): void
     {
         $fileContent = '';
@@ -180,8 +175,6 @@ class ServerControllerTest extends WebTestCase
     }
 
     /**
-     * @param string $tempFilePath
-     * @return void
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function generateXsl(string $tempFilePath): void
@@ -210,15 +203,11 @@ class ServerControllerTest extends WebTestCase
         $writer->save($tempFilePath);
     }
 
-    /**
-     * @param string $tempFilePath
-     * @return void
-     */
     private function generateCsv(string $tempFilePath): void
     {
-        $fileContent = 'Model,RAM,HDD,Location,Price' . PHP_EOL;
-        $fileContent .= 'Dell R210Intel Xeon X3440,16GBDDR3,2x2TBSATA2,AmsterdamAMS-01,€49.99' . PHP_EOL;
-        $fileContent .= 'HP DL180G62x Intel Xeon E5620,32GBDDR3,8x2TBSATA2,AmsterdamAMS-01,€119.00' . PHP_EOL;
+        $fileContent = 'Model,RAM,HDD,Location,Price'.PHP_EOL;
+        $fileContent .= 'Dell R210Intel Xeon X3440,16GBDDR3,2x2TBSATA2,AmsterdamAMS-01,€49.99'.PHP_EOL;
+        $fileContent .= 'HP DL180G62x Intel Xeon E5620,32GBDDR3,8x2TBSATA2,AmsterdamAMS-01,€119.00'.PHP_EOL;
         file_put_contents($tempFilePath, $fileContent);
     }
 
@@ -239,7 +228,7 @@ class ServerControllerTest extends WebTestCase
                 'hdd_index:SATA',
                 'location_index:AmsterdamAMS-01',
             ],
-            'case 2' =>[
+            'case 2' => [
                 'server:3',
                 [
                     'model' => 'HP DL180G62x Intel Xeon E5620',
@@ -252,7 +241,7 @@ class ServerControllerTest extends WebTestCase
                 'ram_index:32GB',
                 'hdd_index:SATA',
                 'location_index:AmsterdamAMS-01',
-            ]
+            ],
         ];
     }
 

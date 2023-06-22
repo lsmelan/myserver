@@ -24,7 +24,7 @@ class ServerFilterFormType extends AbstractType
                     '32GB' => '32GB',
                     '48GB' => '48GB',
                     '64GB' => '64GB',
-                    '96GB' => '96GB'
+                    '96GB' => '96GB',
                 ],
                 'expanded' => true,
                 'multiple' => true,

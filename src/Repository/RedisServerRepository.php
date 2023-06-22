@@ -124,6 +124,7 @@ class RedisServerRepository
             $serverIdsOr = $this->redisClient->sunion($filtersOr);
             $serverIds = !empty($filters) ? array_intersect($serverIds, $serverIdsOr) : $serverIdsOr;
         }
+
         return $serverIds;
     }
 }

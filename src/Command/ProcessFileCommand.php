@@ -69,7 +69,7 @@ class ProcessFileCommand extends Command
 
     private function getKey(int|string $key): string
     {
-        return 'server:' . $key;
+        return 'server:'.$key;
     }
 
     private function getDataToCache(mixed $fields, mixed $data): array
@@ -90,10 +90,10 @@ class ProcessFileCommand extends Command
         preg_match('/(SATA|SAS|SSD)/', $data[self::HDD_COLUMN], $hdd);
 
         return [
-            'storage_index:' . ($storage[1] ?? ''),
-            'ram_index:' . ($ram[1] ?? ''),
-            'hdd_index:' . ($hdd[1] ?? ''),
-            'location_index:' . $data[self::LOCATION_COLUMN]
+            'storage_index:'.($storage[1] ?? ''),
+            'ram_index:'.($ram[1] ?? ''),
+            'hdd_index:'.($hdd[1] ?? ''),
+            'location_index:'.$data[self::LOCATION_COLUMN],
         ];
     }
 }

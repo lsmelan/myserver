@@ -70,10 +70,6 @@ class RegistrationControllerTest extends WebTestCase
         );
     }
 
-    /**
-     * @param object|null $passwordHasher
-     * @return void
-     */
     private function createUser(?object $passwordHasher): void
     {
         $user = new User();

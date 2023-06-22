@@ -11,6 +11,7 @@ interface CacheInterface
     public function getAll(string $key): array;
 
     public function sinter(array|string $keys): array;
+
     public function sunion(array|string $keys): array;
 
     public function keys(string $pattern): array;

@@ -59,8 +59,8 @@ class ServerControllerTest extends WebTestCase
     {
         $this->client->request('GET', '/api/servers', [
                 'filters' => [
-                    'storage_index:480GB'
-                ]
+                    'storage_index:480GB',
+                ],
             ]
         );
 
@@ -80,8 +80,8 @@ class ServerControllerTest extends WebTestCase
                 'filtersOr' => [
                     'ram_index:16GB',
                     'ram_index:32GB',
-                    'ram_index:128GB'
-                ]
+                    'ram_index:128GB',
+                ],
             ]
         );
 
@@ -103,7 +103,7 @@ class ServerControllerTest extends WebTestCase
                 'filtersOr' => [
                     'hdd_index:SSD',
                     'hdd_index:SATA',
-                ]
+                ],
             ]
         );
 
@@ -129,7 +129,7 @@ class ServerControllerTest extends WebTestCase
                     'ram_index:16GB',
                     'ram_index:32GB',
                     'ram_index:128GB',
-                ]
+                ],
             ]
         );
 
@@ -303,19 +303,19 @@ class ServerControllerTest extends WebTestCase
                 'storage_index:2TB',
                 'ram_index:16GB',
                 'hdd_index:SATA',
-                'location_index:AmsterdamAMS-01'
+                'location_index:AmsterdamAMS-01',
             ],
             'server:2' => [
                 'storage_index:2TB',
                 'ram_index:32GB',
                 'hdd_index:SATA',
-                'location_index:AmsterdamAMS-01'
+                'location_index:AmsterdamAMS-01',
             ],
             'server:3' => [
                 'storage_index:480GB',
                 'ram_index:128GB',
                 'hdd_index:SSD',
-                'location_index:FrankfurtFRA-10'
+                'location_index:FrankfurtFRA-10',
             ],
         ];
     }

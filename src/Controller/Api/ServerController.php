@@ -30,7 +30,7 @@ class ServerController extends AbstractController
         $perPage = $request->query->get('per_page', 10);
 
         // Retrieve the list of servers from your data source
-        $servers = $this->getServersFromRedis((array) $filters,(array) $filtersOr, $sortBy, $sortOrder, $page, $perPage);
+        $servers = $this->getServersFromRedis((array) $filters, (array) $filtersOr, $sortBy, $sortOrder, $page, $perPage);
 
         // Transform the servers array into a JSON response
         return new JsonResponse($servers);
