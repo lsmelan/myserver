@@ -7,6 +7,10 @@ export default class Ajax {
     }
 
     addEventListeners(_self) {
+        document.getElementById('server_filter_form_storage').addEventListener('change', function(event) {
+            _self.makeRequest();
+        });
+
         document.getElementById('server_filter_form_hdd').addEventListener('change', function(event) {
             _self.makeRequest();
         });
@@ -46,6 +50,13 @@ export default class Ajax {
 
         const page = document.getElementById('server_filter_form_page').value;
         filters += '&page=' + page;
+
+        const storageOptions = document.getElementById('server_filter_form_storage').value.split(',');
+        for (let i = 0; i < storageOptions.length; i++) {
+            if (storageOptions[i]) {
+                filters += '&filtersOr[]=' + 'storage_index:' + storageOptions[i];
+            }
+        }
 
         const hdd = document.getElementById('server_filter_form_hdd').value;
         if (hdd) {

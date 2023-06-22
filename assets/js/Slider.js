@@ -26,5 +26,16 @@ export default class Slider {
             format: format,
             pips: { mode: 'steps', format: format, density: 50 },
         });
+
+        arbitraryValuesSlider.noUiSlider.on('change', function (values, handle, unencoded) {
+            const start = ~~unencoded[0];
+            const end = ~~unencoded[1];
+
+            const range = arbitraryValuesForSlider.slice(start, end + 1);
+            const element = document.getElementById('server_filter_form_storage');
+            element.value = range.join(',');
+            const event = new Event('change');
+            element.dispatchEvent(event);
+        });
     }
 }

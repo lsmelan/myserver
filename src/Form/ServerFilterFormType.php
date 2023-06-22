@@ -49,6 +49,7 @@ class ServerFilterFormType extends AbstractType
                     'Washington D.C.WDC-01' => 'Washington D.C.WDC-01',
                 ],
             ])
+            ->add('storage', HiddenType::class)
             ->add('page', HiddenType::class, [
                 'data' => '1',
             ]);
