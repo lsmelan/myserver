@@ -3,7 +3,10 @@ export default class Ajax {
         const _self = this;
 
         _self.makeRequest();
+        _self.addEventListeners(_self);
+    }
 
+    addEventListeners(_self) {
         document.getElementById('server_filter_form_hdd').addEventListener('change', function(event) {
             _self.makeRequest();
         });
@@ -11,6 +14,13 @@ export default class Ajax {
         document.getElementById('server_filter_form_location').addEventListener('change', function(event) {
             _self.makeRequest();
         });
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="server_filter_form[ram][]"]');
+        for (let i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function(event) {
+                _self.makeRequest();
+            });
+        }
     }
 
     makeRequest() {
@@ -45,6 +55,13 @@ export default class Ajax {
         const location = document.getElementById('server_filter_form_location').value;
         if (location) {
             filters += '&filters[]=' + 'location_index:' + location;
+        }
+
+        const ramOptions = document.querySelectorAll('input[type="checkbox"][name="server_filter_form[ram][]"]');
+        for (let i = 0; i < ramOptions.length; i++) {
+            if (ramOptions[i].checked) {
+                filters += '&filtersOr[]=' + 'ram_index:' + ramOptions[i].value;
+            }
         }
 
         return filters;
