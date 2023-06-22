@@ -57,7 +57,12 @@ class ServerControllerTest extends WebTestCase
 
     public function testFilterByStorage(): void
     {
-        $this->client->request('GET', '/api/servers', ['filters' => ['storage_index:480GB']]);
+        $this->client->request('GET', '/api/servers', [
+                'filters' => [
+                    'storage_index:480GB'
+                ]
+            ]
+        );
 
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
@@ -70,7 +75,15 @@ class ServerControllerTest extends WebTestCase
 
     public function testFilterByRAM(): void
     {
-        $this->client->request('GET', '/api/servers', ['filters' => ['ram_index:16GB']]);
+        $this->client->request('GET', '/api/servers',
+            [
+                'filtersOr' => [
+                    'ram_index:16GB',
+                    'ram_index:32GB',
+                    'ram_index:128GB'
+                ]
+            ]
+        );
 
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
@@ -79,11 +92,20 @@ class ServerControllerTest extends WebTestCase
 
         $this->assertNotEmpty($responseData['servers']);
         $this->assertStringContainsString('16GB', $responseData['servers'][0]['ram']);
+        $this->assertStringContainsString('32GB', $responseData['servers'][1]['ram']);
+        $this->assertStringContainsString('128GB', $responseData['servers'][2]['ram']);
     }
 
     public function testFilterByHDD(): void
     {
-        $this->client->request('GET', '/api/servers', ['filters' => ['hdd_index:SSD']]);
+        $this->client->request('GET', '/api/servers',
+            [
+                'filtersOr' => [
+                    'hdd_index:SSD',
+                    'hdd_index:SATA',
+                ]
+            ]
+        );
 
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
@@ -91,20 +113,34 @@ class ServerControllerTest extends WebTestCase
         $responseData = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertNotEmpty($responseData['servers']);
-        $this->assertStringContainsString('SSD', $responseData['servers'][0]['hdd']);
+        $this->assertStringContainsString('SSD', $responseData['servers'][2]['hdd']);
+        $this->assertStringContainsString('SATA', $responseData['servers'][0]['hdd']);
+        $this->assertStringContainsString('SATA', $responseData['servers'][1]['hdd']);
     }
 
-    public function testFilterByLocation(): void
+    public function testFilterByLocationAndRam(): void
     {
-        $this->client->request('GET', '/api/servers', ['filters' => ['location_index:AmsterdamAMS-01']]);
+        $this->client->request('GET', '/api/servers',
+            [
+                'filters' => [
+                    'location_index:AmsterdamAMS-01',
+                ],
+                'filtersOr' => [
+                    'ram_index:16GB',
+                    'ram_index:32GB',
+                    'ram_index:128GB',
+                ]
+            ]
+        );
 
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
 
         $responseData = json_decode($this->client->getResponse()->getContent(), true);
 
-        $this->assertNotEmpty($responseData['servers']);
+        $this->assertCount(2, $responseData['servers']);
         $this->assertStringContainsString('AmsterdamAMS-01', $responseData['servers'][0]['location']);
+        $this->assertStringContainsString('AmsterdamAMS-01', $responseData['servers'][1]['location']);
     }
 
     public function testPagination(): void

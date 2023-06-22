@@ -32,9 +32,20 @@ class RedisServerRepository
         }
     }
 
-    public function getServersByFilters(array $keys, string $sortBy, string $sortOrder, int $page, int $perPage): array
-    {
-        $serverIds = !empty($keys) ? $this->redisClient->sinter($keys) : $this->redisClient->keys('server*');
+    public function getServersByFilters(
+        array $filters,
+        array $filtersOr,
+        string $sortBy,
+        string $sortOrder,
+        int $page,
+        int $perPage
+    ): array {
+        $serverIds = [];
+        if (empty($filters) && empty($filtersOr)) {
+            $serverIds = $this->redisClient->keys('server*');
+        } else {
+            $serverIds = $this->getServerIds($filters, $filtersOr, $serverIds);
+        }
 
         $servers = $this->applySorting($serverIds, $sortBy, $sortOrder);
 
@@ -101,5 +112,18 @@ class RedisServerRepository
         }
 
         return $servers;
+    }
+
+    private function getServerIds(array $filters, array $filtersOr, array $serverIds): array
+    {
+        if (!empty($filters)) {
+            $serverIds = $this->redisClient->sinter($filters);
+        }
+
+        if (!empty($filtersOr)) {
+            $serverIdsOr = $this->redisClient->sunion($filtersOr);
+            $serverIds = !empty($filters) ? array_intersect($serverIds, $serverIdsOr) : $serverIdsOr;
+        }
+        return $serverIds;
     }
 }

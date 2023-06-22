@@ -33,6 +33,11 @@ class RedisClient implements CacheInterface
         return $this->redis->sinter($keys);
     }
 
+    public function sunion(array|string $keys): array
+    {
+        return $this->redis->sunion($keys);
+    }
+
     public function keys(string $pattern): array
     {
         return $this->redis->keys($pattern);
