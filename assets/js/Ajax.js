@@ -6,7 +6,34 @@ export default class Ajax {
         _self.addEventListeners(_self);
     }
 
+    setupSorting(_self) {
+        const fieldsToSort = document.querySelectorAll('.sort');
+        for (let i = 0; i < fieldsToSort.length; i++) {
+            fieldsToSort[i].addEventListener('click', function(event) {
+                const sortBy = document.getElementById('server_filter_form_sort_by');
+                const currentSortBy = sortBy.value;
+                const newSortBy = this.innerText.toLowerCase();
+                const sortOrder = document.getElementById('server_filter_form_sort_order');
+                const currentSortOrder = sortOrder.value;
+
+                sortBy.value = newSortBy;
+
+                if (currentSortBy === newSortBy && 'asc' === currentSortOrder) {
+                    sortOrder.value = 'desc';
+                } else if (currentSortBy === newSortBy && 'desc' === currentSortOrder) {
+                    sortOrder.value = 'asc';
+                } else {
+                    sortOrder.value = 'asc';
+                }
+
+                _self.makeRequest();
+            });
+        }
+    }
+
     addEventListeners(_self) {
+        _self.setupSorting(_self);
+
         document.getElementById('server_filter_form_storage').addEventListener('change', function(event) {
             _self.makeRequest();
         });
@@ -48,8 +75,13 @@ export default class Ajax {
     getFilters() {
         let filters = '';
 
+        const sortBy = document.getElementById('server_filter_form_sort_by').value;
+        const sortOrder = document.getElementById('server_filter_form_sort_order').value;
         const page = document.getElementById('server_filter_form_page').value;
+
         filters += '&page=' + page;
+        filters += '&sort_by=' + sortBy;
+        filters += '&sort_order=' + sortOrder;
 
         const storageOptions = document.getElementById('server_filter_form_storage').value.split(',');
         for (let i = 0; i < storageOptions.length; i++) {

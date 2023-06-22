@@ -50,6 +50,12 @@ class ServerFilterFormType extends AbstractType
                 ],
             ])
             ->add('storage', HiddenType::class)
+            ->add('sort_by', HiddenType::class, [
+                'data' => 'model',
+            ])
+            ->add('sort_order', HiddenType::class, [
+                'data' => 'asc',
+            ])
             ->add('page', HiddenType::class, [
                 'data' => '1',
             ]);
