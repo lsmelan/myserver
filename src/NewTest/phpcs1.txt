@@ -1,0 +1,86 @@
+
+FILE: /var/www/html/src/NewTest/IncorrectExamples.php
+--------------------------------------------------------------------------------
+FOUND 55 ERRORS AND 1 WARNING AFFECTING 27 LINES
+--------------------------------------------------------------------------------
+  12 | ERROR   | [x] Expected 0 spaces after opening parenthesis; 1 found
+  12 | ERROR   | [x] Expected 0 spaces before closing parenthesis; 1 found
+  18 | ERROR   | [ ] Method name "IncorrectExamples::Get_property" is not in
+     |         |     camel caps format
+  24 | ERROR   | [ ] Method name "IncorrectExamples::calculate_product" is not
+     |         |     in camel caps format
+  24 | ERROR   | [x] Opening brace should be on a new line
+  26 | ERROR   | [x] Expected at least 1 space before "*"; 0 found
+  26 | ERROR   | [x] Expected at least 1 space after "*"; 0 found
+  36 | ERROR   | [ ] Method name "IncorrectExamples::format_string" is not in
+     |         |     camel caps format
+  36 | ERROR   | [x] Expected 0 spaces after opening parenthesis; 1 found
+  36 | ERROR   | [x] Expected 0 spaces before closing parenthesis; 1 found
+  36 | ERROR   | [x] Opening brace should be on a new line
+  37 | ERROR   | [x] Space after opening parenthesis of function call
+     |         |     prohibited
+  41 | ERROR   | [ ] Method name "IncorrectExamples::is_positive" is not in
+     |         |     camel caps format
+  43 | ERROR   | [x] Expected at least 1 space before ">"; 0 found
+  43 | ERROR   | [x] Expected at least 1 space after ">"; 0 found
+  43 | ERROR   | [x] Expected at least 1 space before "?"; 0 found
+  43 | ERROR   | [x] Expected at least 1 space after "?"; 0 found
+  43 | ERROR   | [x] Expected at least 1 space before ":"; 0 found
+  43 | ERROR   | [x] Expected at least 1 space after ":"; 0 found
+  47 | ERROR   | [ ] Method name "IncorrectExamples::display_string" is not in
+     |         |     camel caps format
+  49 | ERROR   | [x] Expected at least 1 space before "."; 0 found
+  49 | ERROR   | [x] Expected at least 1 space after "."; 0 found
+  49 | ERROR   | [x] Expected at least 1 space before "."; 0 found
+  49 | ERROR   | [x] Expected at least 1 space after "."; 0 found
+  55 | WARNING | [ ] Line exceeds 120 characters; contains 126 characters
+  59 | ERROR   | [ ] Method name "IncorrectExamples::get_associative_array" is
+     |         |     not in camel caps format
+  62 | ERROR   | [x] Expected at least 1 space before "=>"; 0 found
+  62 | ERROR   | [x] Expected at least 1 space after "=>"; 0 found
+  63 | ERROR   | [x] Expected at least 1 space before "=>"; 0 found
+  63 | ERROR   | [x] Expected at least 1 space after "=>"; 0 found
+  64 | ERROR   | [x] Expected at least 1 space before "=>"; 0 found
+  64 | ERROR   | [x] Expected at least 1 space after "=>"; 0 found
+  69 | ERROR   | [ ] Method name
+     |         |     "IncorrectExamples::LONG_FUNCTION_NAME_WITH_UNDERSCORES"
+     |         |     is not in camel caps format
+  69 | ERROR   | [x] Expected 0 spaces after opening parenthesis; 1 found
+  69 | ERROR   | [x] Expected 0 spaces between argument "$Var1" and comma; 1
+     |         |     found
+  69 | ERROR   | [x] Expected 0 spaces between argument "$Var2" and comma; 1
+     |         |     found
+  69 | ERROR   | [x] Expected 0 spaces before closing parenthesis; 1 found
+  75 | ERROR   | [ ] Visibility must be declared on method
+     |         |     "noVisibilityDeclaration"
+  81 | ERROR   | [ ] Visibility must be declared on method
+     |         |     "twoArgumentsInAMultiLineFunction"
+  85 | ERROR   | [x] No space found after comma in argument list
+  85 | ERROR   | [x] Only one argument is allowed per line in a multi-line
+     |         |     function call
+  90 | ERROR   | [ ] Visibility must be declared on method
+     |         |     "newLineBeforeClosingParenthesis"
+  99 | ERROR   | [ ] Visibility must be declared on method "retArray"
+  99 | ERROR   | [x] Incorrect spacing between argument "$array2" and equals
+     |         |     sign; expected 1 but found 0
+  99 | ERROR   | [x] Incorrect spacing between default value and equals sign
+     |         |     for argument "$array2"; expected 1 but found 0
+  99 | ERROR   | [x] Incorrect spacing between argument "$array3" and equals
+     |         |     sign; expected 1 but found 0
+  99 | ERROR   | [x] Incorrect spacing between default value and equals sign
+     |         |     for argument "$array3"; expected 1 but found 0
+ 101 | ERROR   | [x] Expected at least 1 space before "+"; 0 found
+ 101 | ERROR   | [x] Expected at least 1 space after "+"; 0 found
+ 101 | ERROR   | [x] Expected at least 1 space before "+"; 0 found
+ 101 | ERROR   | [x] Expected at least 1 space after "+"; 0 found
+ 105 | ERROR   | [x] Spaces must be used to indent lines; tabs are not allowed
+ 106 | ERROR   | [x] Spaces must be used to indent lines; tabs are not allowed
+ 107 | ERROR   | [x] Spaces must be used to indent lines; tabs are not allowed
+ 108 | ERROR   | [x] Spaces must be used to indent lines; tabs are not allowed
+ 110 | ERROR   | [x] A closing tag is not permitted at the end of a PHP file
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 44 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+Time: 274ms; Memory: 6MB
+

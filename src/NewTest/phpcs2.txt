@@ -1,0 +1,29 @@
+
+FILE: /var/www/html/src/NewTest/IncorrectExamples.php
+--------------------------------------------------------------------------------
+FOUND 8 ERRORS AND 1 WARNING AFFECTING 9 LINES
+--------------------------------------------------------------------------------
+ 17 | ERROR   | [ ] Method name "IncorrectExamples::Get_property" is not in
+    |         |     camel caps format
+ 23 | ERROR   | [ ] Method name "IncorrectExamples::calculate_product" is not
+    |         |     in camel caps format
+ 35 | ERROR   | [ ] Method name "IncorrectExamples::format_string" is not in
+    |         |     camel caps format
+ 41 | ERROR   | [ ] Method name "IncorrectExamples::is_positive" is not in
+    |         |     camel caps format
+ 47 | ERROR   | [ ] Method name "IncorrectExamples::display_string" is not in
+    |         |     camel caps format
+ 55 | WARNING | [ ] Line exceeds 120 characters; contains 126 characters
+ 59 | ERROR   | [ ] Method name "IncorrectExamples::get_associative_array" is
+    |         |     not in camel caps format
+ 67 | ERROR   | [ ] Method name
+    |         |     "IncorrectExamples::LONG_FUNCTION_NAME_WITH_UNDERSCORES" is
+    |         |     not in camel caps format
+ 83 | ERROR   | [x] Only one argument is allowed per line in a multi-line
+    |         |     function call
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+Time: 270ms; Memory: 6MB
+
